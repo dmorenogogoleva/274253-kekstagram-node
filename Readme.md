@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
-* Студент: [Дарья Морено-Гоголева](https://up.htmlacademy.ru/nodejs/2/user/274253).
-* Наставник: `Павел Коваленко`.
+* Студентка: [Дарья Морено-Гоголева](https://up.htmlacademy.ru/nodejs/2/user/274253).
+* Наставник: [Павел Коваленко](https://htmlacademy.ru/profile/id194424).
 
 ---
 
