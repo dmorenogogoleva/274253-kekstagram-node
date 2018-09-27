@@ -1,0 +1,26 @@
+{
+  "name": "server-kekstagram",
+  "version": "1.0.0",
+  "description": "server for kekstagram",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iwanttobealight/274253-kekstagram-1.git"
+  },
+  "keywords": [
+    "kekstagram",
+    "node.js",
+    "htmlacademy",
+    "iwanttobealight"
+  ],
+  "author": "iwanttobealight",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iwanttobealight/274253-kekstagram-1/issues"
+  },
+  "homepage": "https://github.com/iwanttobealight/274253-kekstagram-1#readme"
+}
