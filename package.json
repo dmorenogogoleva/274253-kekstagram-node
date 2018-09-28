@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/iwanttobealight/274253-kekstagram-1#readme",
   "devDependencies": {
-    "eslint": "^5.6.0",
-    "eslint-config-htmlacademy": "^0.5.2"
+    "eslint": "5.6.0",
+    "eslint-config-htmlacademy": "0.5.2"
   }
 }
