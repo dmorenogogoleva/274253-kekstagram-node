@@ -7,8 +7,11 @@ switch (process.argv[2]) {
     console.log(`Доступные команды: \n --help — печатает этот текст; \n --version — печатает версию приложения;`);
     process.exit(0);
     break;
-  default:
+  case undefined:
     console.log(`Привет! Эта программа будет запускать сервер кекстаграма`);
+    process.exit(0);
+    break;
+  default:
     console.error(`Неизвестная команда ${process.argv[2]}. \n Чтобы прочитать правила использования приложения, наберите "--help"`);
     process.exit(1);
     break;
