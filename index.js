@@ -1,18 +1,38 @@
+const version = require(`./src/version`);
+const description = require(`./src/description`);
+const license = require(`./src/license`);
+const author = require(`./src/author`);
+const help = require(`./src/help`);
+const error = require(`./src/error`);
+const defaultMessage = require(`./src/default`);
+
 switch (process.argv[2]) {
   case `--version`:
-    console.log(`v0.0.1`);
+    version.execute();
+    process.exit(0);
+    break;
+  case `--description`:
+    description.execute();
+    process.exit(0);
+    break;
+  case `--license`:
+    license.execute();
+    process.exit(0);
+    break;
+  case `--author`:
+    author.execute();
     process.exit(0);
     break;
   case `--help`:
-    console.log(`Доступные команды: \n --help — печатает этот текст; \n --version — печатает версию приложения;`);
+    help.execute();
     process.exit(0);
     break;
   case undefined:
-    console.log(`Привет! Эта программа будет запускать сервер кекстаграма`);
+    defaultMessage.execute();
     process.exit(0);
     break;
   default:
-    console.error(`Неизвестная команда ${process.argv[2]}. \n Чтобы прочитать правила использования приложения, наберите "--help"`);
+    error.execute(process.argv[2]);
     process.exit(1);
     break;
 }
