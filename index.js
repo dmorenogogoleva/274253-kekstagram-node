@@ -1,38 +1,25 @@
-const version = require(`./src/version`);
-const description = require(`./src/description`);
-const license = require(`./src/license`);
-const author = require(`./src/author`);
-const help = require(`./src/help`);
-const error = require(`./src/error`);
-const defaultMessage = require(`./src/default`);
+const modules = [
+  require(`./src/version`),
+  require(`./src/description`),
+  require(`./src/license`),
+  require(`./src/author`),
+  require(`./src/help`),
+];
+const defaultModule = require(`./src/default`);
+const errorModule = require(`./src/error`);
+const userCommand = process.argv[2];
 
-switch (process.argv[2]) {
-  case `--version`:
-    version.execute();
-    process.exit(0);
-    break;
-  case `--description`:
-    description.execute();
-    process.exit(0);
-    break;
-  case `--license`:
-    license.execute();
-    process.exit(0);
-    break;
-  case `--author`:
-    author.execute();
-    process.exit(0);
-    break;
-  case `--help`:
-    help.execute();
-    process.exit(0);
-    break;
-  case undefined:
-    defaultMessage.execute();
-    process.exit(0);
-    break;
-  default:
-    error.execute(process.argv[2]);
-    process.exit(1);
-    break;
+if (userCommand === undefined) {
+  defaultModule.execute();
+  process.exit(0);
+}
+
+const currentCommand = modules.find((mod) => `--${mod.name}` === userCommand.toLowerCase());
+
+if (currentCommand === undefined) {
+  errorModule.execute(userCommand);
+  process.exit(1);
+} else {
+  currentCommand.execute();
+  process.exit(0);
 }
