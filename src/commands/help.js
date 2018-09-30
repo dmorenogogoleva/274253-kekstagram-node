@@ -1,9 +1,17 @@
 require(`colors`);
 
+const COMMANDS = [
+  {label: `help`, description: `этот текст`},
+  {label: `version`, description: `версию приложения`},
+  {label: `description`, description: `описание приложения`},
+  {label: `license`, description: `лицензию приложения`},
+  {label: `author`, description: `автора приложения`}
+];
+
 module.exports = {
   name: `help`,
   description: `Shows available comands`,
   execute() {
-    console.log(`Доступные команды: \n ${`--help`.gray} — ${`печатает этот текст`.green}; \n ${`--version`.gray} — ${`печатает версию приложения`.green}; \n ${`--description`.gray} — ${`печатает описание приложения`.green}; \n ${`--license`.gray} — ${`печатает лицензию приложения`.green}; \n ${`--author`.gray} — ${`печатает автора приложения`.green};`);
+    console.log(`Доступные команды:\n${COMMANDS.map((cmd) => `\n--${cmd.label.gray} — ${`печатает ${cmd.description}`.green}`).join(``)}`);
   }
 };
