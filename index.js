@@ -1,12 +1,12 @@
 const modules = [
-  require(`./src/version`),
-  require(`./src/description`),
-  require(`./src/license`),
-  require(`./src/author`),
-  require(`./src/help`),
+  require(`./src/commands/version`),
+  require(`./src/commands/description`),
+  require(`./src/commands/license`),
+  require(`./src/commands/author`),
+  require(`./src/commands/help`),
 ];
-const defaultModule = require(`./src/default`);
-const errorModule = require(`./src/error`);
+const defaultModule = require(`./src/commands/default`);
+const errorModule = require(`./src/commands/error`);
 const userCommand = process.argv[2];
 
 if (userCommand === undefined) {
