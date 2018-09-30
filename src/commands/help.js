@@ -1,7 +1,9 @@
+require(`colors`);
+
 module.exports = {
   name: `help`,
   description: `Shows available comands`,
   execute() {
-    console.log(`Доступные команды: \n --help — печатает этот текст; \n --version — печатает версию приложения; \n --description — печатает описание приложения; \n --license — печатает лицензию приложения; \n --author — печатает автора приложения;`);
+    console.log(`Доступные команды: \n ${`--help`.gray} — ${`печатает этот текст`.green}; \n ${`--version`.gray} — ${`печатает версию приложения`.green}; \n ${`--description`.gray} — ${`печатает описание приложения`.green}; \n ${`--license`.gray} — ${`печатает лицензию приложения`.green}; \n ${`--author`.gray} — ${`печатает автора приложения`.green};`);
   }
 };
