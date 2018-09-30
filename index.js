@@ -1,18 +1,25 @@
-switch (process.argv[2]) {
-  case `--version`:
-    console.log(`v0.0.1`);
-    process.exit(0);
-    break;
-  case `--help`:
-    console.log(`Доступные команды: \n --help — печатает этот текст; \n --version — печатает версию приложения;`);
-    process.exit(0);
-    break;
-  case undefined:
-    console.log(`Привет! Эта программа будет запускать сервер кекстаграма`);
-    process.exit(0);
-    break;
-  default:
-    console.error(`Неизвестная команда ${process.argv[2]}. \n Чтобы прочитать правила использования приложения, наберите "--help"`);
-    process.exit(1);
-    break;
+const modules = [
+  require(`./src/commands/version`),
+  require(`./src/commands/description`),
+  require(`./src/commands/license`),
+  require(`./src/commands/author`),
+  require(`./src/commands/help`),
+];
+const defaultModule = require(`./src/commands/default`);
+const errorModule = require(`./src/commands/error`);
+const userCommand = process.argv[2];
+
+if (userCommand === undefined) {
+  defaultModule.execute();
+  process.exit(0);
+}
+
+const currentCommand = modules.find((mod) => `--${mod.name}` === userCommand.toLowerCase());
+
+if (currentCommand === undefined) {
+  errorModule.execute(userCommand);
+  process.exit(1);
+} else {
+  currentCommand.execute();
+  process.exit(0);
 }
