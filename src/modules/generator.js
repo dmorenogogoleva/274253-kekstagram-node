@@ -9,8 +9,8 @@ module.exports = {
       hashtags: [`#hashtag1`, `#hashtag2`],
       description: `это больничный мистер черепах Генрих с самыми мерзкими ноздрями эвэр`,
       likes: 99,
-      comments: [`memee`],
-      date: 1234,
+      comments: [`comment1`, `comment2`],
+      date: 1538767371423,
     };
   }
 };

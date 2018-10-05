@@ -48,8 +48,7 @@ describe(`generateEntity`, () => {
   it(`field hashtags have less than 5 hashtags`, () => {
     assert.strictEqual(generateEntity().hashtags.length <= 4, true);
   });
-
-  it(`hashtags item have right format`, () => {
+  it(`hashtags items have right format`, () => {
     assert.ok(utils.lengthOfRightHashtagsArr(generateEntity().hashtags) === generateEntity().hashtags.length, true);
   });
 
@@ -83,12 +82,14 @@ describe(`generateEntity`, () => {
   it(`field comments is an array`, () => {
     assert.strictEqual(typeof generateEntity().comments, `object`);
   });
+  it(`comments items have right format`, () => {
+    assert.ok(utils.lengthOfRightCommentsArr(generateEntity().comments) === generateEntity().comments.length, true);
+  });
+
 
   it(`func have field date`, () => {
     assert.ok(generateEntity().date, true);
   });
-
-
   it(`field date is an number`, () => {
     assert.strictEqual(typeof generateEntity().date, `number`);
   });
