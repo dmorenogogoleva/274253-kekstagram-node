@@ -93,5 +93,9 @@ describe(`generateEntity`, () => {
   it(`field date is an number`, () => {
     assert.strictEqual(typeof generateEntity().date, `number`);
   });
+  it(`field date have right format`, () => {
+    assert.ok(generateEntity().date <= Date.now(), true);
+    assert.ok(generateEntity().date >= Date.now() - utils.millisecondsInWeek, true);
+  });
 });
 
