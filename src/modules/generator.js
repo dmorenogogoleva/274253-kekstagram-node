@@ -1,55 +1,60 @@
 const crypto = require(`crypto`);
 const utils = require(`../utils`);
 
-const {effects} = utils;
+const {EFFECTS, MILLISECONDS_IN_WEEK} = utils;
 
-module.exports = {
-  name: `generator`,
-  description: `Generates mock json`,
-  descriptionMaxLength: 140,
-  commentMaxLength: 140,
-  hashtagMaxLength: 20,
-  hashtagsArrayMaxLength: 5,
-  getRandomNum(min, max) {
-    return Math.abs(Math.round(min - 0.5 + Math.random() * (max - min + 1)));
-  },
-  getRandomString(length) {
-    return length < 2
-      ? crypto.randomBytes(1).toString(`hex`)
-      : crypto.randomBytes(length / 2).toString(`hex`);
-  },
-  getCommentsArray() {
-    const arr = [];
-    for (let i = 0; i < this.getRandomNum(0, 5); i++) {
-      arr.push(this.getRandomString(this.getRandomNum(1, this.commentMaxLength)));
-    }
-    return arr;
-  },
-  getHashtagsArray() {
-    const arr = [];
-    for (let i = 0; i < this.getRandomNum(0, this.hashtagsArrayMaxLength); i++) {
-      arr.push(`#${this.getRandomString(this.getRandomNum(1, this.hashtagMaxLength))}`);
-    }
-    return arr;
-  },
-  generateEntity() {
-    const url = `http://placecorgi.com/600/${this.getRandomNum(200, 800)}`;
-    const scale = this.getRandomNum(0, 100);
-    const effect = effects[this.getRandomNum(0, effects.length - 1)];
-    const hashtags = this.getHashtagsArray();
-    const description = this.getRandomString(this.getRandomNum(1, this.descriptionMaxLength));
-    const likes = this.getRandomNum(0, 1000);
-    const comments = this.getCommentsArray();
-    const date = this.getRandomNum(Date.now() - utils.millisecondsInWeek, Date.now());
-    return {
-      url,
-      scale,
-      effect,
-      hashtags,
-      description,
-      likes,
-      comments,
-      date,
-    };
-  }
+
+const DESCRIPTION_MAX_LENGTH = 140;
+const COMMENT_MAX_LENGTH = 140;
+const HASHTAG_MAX_LENGTH = 20;
+const HASHTAGS_ARRAY_MAX_LENGTH = 5;
+
+const getRandomNum = (min, max) => {
+  return Math.abs(Math.round(min - 0.5 + Math.random() * (max - min + 1)));
 };
+
+const getRandomString = (length) => {
+  return length < 2
+    ? crypto.randomBytes(1).toString(`hex`)
+    : crypto.randomBytes(length / 2).toString(`hex`);
+};
+
+const getCommentsArray = () => {
+  const arr = [];
+  for (let i = 0; i < getRandomNum(0, 5); i++) {
+    arr.push(getRandomString(getRandomNum(1, COMMENT_MAX_LENGTH)));
+  }
+  return arr;
+};
+
+const getHashtagsArray = () => {
+  const arr = [];
+  for (let i = 0; i < getRandomNum(0, HASHTAGS_ARRAY_MAX_LENGTH); i++) {
+    arr.push(`#${getRandomString(getRandomNum(1, HASHTAG_MAX_LENGTH))}`);
+  }
+  return arr;
+};
+
+const generateEntity = () => {
+  const url = `http://placecorgi.com/600/${getRandomNum(200, 800)}`;
+  const scale = getRandomNum(0, 100);
+  const effect = EFFECTS[getRandomNum(0, EFFECTS.length - 1)];
+  const hashtags = getHashtagsArray();
+  const description = getRandomString(getRandomNum(1, DESCRIPTION_MAX_LENGTH));
+  const likes = getRandomNum(0, 1000);
+  const comments = getCommentsArray();
+  const date = getRandomNum(Date.now() - MILLISECONDS_IN_WEEK, Date.now());
+  return {
+    url,
+    scale,
+    effect,
+    hashtags,
+    description,
+    likes,
+    comments,
+    date,
+  };
+};
+
+
+module.exports = {generateEntity};
