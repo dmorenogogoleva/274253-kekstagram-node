@@ -1,6 +1,6 @@
 const utils = require(`../utils`);
 
-const {EFFECTS, MILLISECONDS_IN_WEEK} = utils;
+const { EFFECTS, MILLISECONDS_IN_WEEK } = utils;
 
 const DESCRIPTION_MAX_LENGTH = 140;
 const COMMENT_MAX_LENGTH = 140;
@@ -38,16 +38,23 @@ const getHashtagsArray = () => {
   return arr;
 };
 
-const generateEntity = () => ({
-  url: `http://placecorgi.com/600/${getRandomNum(200, 800)}`,
-  scale: getRandomNum(0, 100),
-  effect: EFFECTS[getRandomNum(0, EFFECTS.length - 1)],
-  hashtags: getHashtagsArray(),
-  description: getRandomString(getRandomNum(1, DESCRIPTION_MAX_LENGTH)),
-  likes: getRandomNum(0, 1000),
-  comments: getCommentsArray(),
-  date: getRandomNum(Date.now() - MILLISECONDS_IN_WEEK, Date.now()),
-});
+const generateEntity = (quantity) => {
+  const arr = [];
+  for (let i = 0; i < quantity; i++) {
+    arr.push({
+      url: `http://placecorgi.com/600/${getRandomNum(200, 800)}`,
+      scale: getRandomNum(0, 100),
+      effect: EFFECTS[getRandomNum(0, EFFECTS.length - 1)],
+      hashtags: getHashtagsArray(),
+      description: getRandomString(getRandomNum(1, DESCRIPTION_MAX_LENGTH)),
+      likes: getRandomNum(0, 1000),
+      comments: getCommentsArray(),
+      date: getRandomNum(Date.now() - MILLISECONDS_IN_WEEK, Date.now()),
+    });
+  }
+  console.log(`generateEntity`, arr);
+  return arr;
+};
 
 
 module.exports = {generateEntity};

@@ -6,6 +6,6 @@ module.exports = {
     return array.filter((hashtag) => REGEXP_HASHTAG.test(hashtag)).length;
   },
   lengthOfRightCommentsArr(array) {
-    return array.filter((comment) => typeof comment === `string` && comment.length < 140).length;
+    return array.filter((comment) => typeof comment === `string` && comment.length <= 140).length;
   }
 };

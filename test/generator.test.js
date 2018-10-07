@@ -3,7 +3,7 @@ const helpers = require(`./helpers`);
 const utils = require(`../src/utils`);
 const generator = require(`../src/modules/generator`);
 
-const generateEntity = generator.generateEntity();
+const generateEntity = generator.generateEntity(1)[0];
 const {REGEXP_URL, lengthOfRightHashtagsArr, lengthOfRightCommentsArr} = helpers;
 const {EFFECTS, MILLISECONDS_IN_WEEK} = utils;
 
