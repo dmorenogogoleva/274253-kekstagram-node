@@ -38,26 +38,16 @@ const getHashtagsArray = () => {
   return arr;
 };
 
-const generateEntity = () => {
-  const url = `http://placecorgi.com/600/${getRandomNum(200, 800)}`;
-  const scale = getRandomNum(0, 100);
-  const effect = EFFECTS[getRandomNum(0, EFFECTS.length - 1)];
-  const hashtags = getHashtagsArray();
-  const description = getRandomString(getRandomNum(1, DESCRIPTION_MAX_LENGTH));
-  const likes = getRandomNum(0, 1000);
-  const comments = getCommentsArray();
-  const date = getRandomNum(Date.now() - MILLISECONDS_IN_WEEK, Date.now());
-  return {
-    url,
-    scale,
-    effect,
-    hashtags,
-    description,
-    likes,
-    comments,
-    date,
-  };
-};
+const generateEntity = () => ({
+  url: `http://placecorgi.com/600/${getRandomNum(200, 800)}`,
+  scale: getRandomNum(0, 100),
+  effect: EFFECTS[getRandomNum(0, EFFECTS.length - 1)],
+  hashtags: getHashtagsArray(),
+  description: getRandomString(getRandomNum(1, DESCRIPTION_MAX_LENGTH)),
+  likes: getRandomNum(0, 1000),
+  comments: getCommentsArray(),
+  date: getRandomNum(Date.now() - MILLISECONDS_IN_WEEK, Date.now()),
+});
 
 
 module.exports = {generateEntity};

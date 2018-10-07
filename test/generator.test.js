@@ -1,8 +1,11 @@
 const assert = require(`assert`);
-const generator = require(`../src/modules/generator`);
+const helpers = require(`./helpers`);
 const utils = require(`../src/utils`);
+const generator = require(`../src/modules/generator`);
 
 const generateEntity = generator.generateEntity();
+const {REGEXP_URL, lengthOfRightHashtagsArr, lengthOfRightCommentsArr} = helpers;
+const {EFFECTS, MILLISECONDS_IN_WEEK} = utils;
 
 describe(`generateEntity`, () => {
   it(`func returns url`, () => {
@@ -12,7 +15,7 @@ describe(`generateEntity`, () => {
     assert.strictEqual(typeof generateEntity.url, `string`);
   });
   it(`url have right format`, () => {
-    assert.ok(utils.REGEXP_URL.test(generateEntity.url), true);
+    assert.ok(REGEXP_URL.test(generateEntity.url), true);
   });
 
 
@@ -36,7 +39,7 @@ describe(`generateEntity`, () => {
     assert.strictEqual(typeof generateEntity.effect, `string`);
   });
   it(`effect is one of effects`, () => {
-    assert.ok(utils.EFFECTS.includes(generateEntity.effect), true);
+    assert.ok(EFFECTS.includes(generateEntity.effect), true);
   });
 
   it(`func returns hashtags`, () => {
@@ -49,7 +52,7 @@ describe(`generateEntity`, () => {
     assert.strictEqual(generateEntity.hashtags.length <= 5, true);
   });
   it(`hashtags items have right format`, () => {
-    assert.ok(utils.lengthOfRightHashtagsArr(generateEntity.hashtags) === generateEntity.hashtags.length, true);
+    assert.ok(lengthOfRightHashtagsArr(generateEntity.hashtags) === generateEntity.hashtags.length, true);
   });
 
   it(`func returns description`, () => {
@@ -83,7 +86,7 @@ describe(`generateEntity`, () => {
     assert.strictEqual(typeof generateEntity.comments, `object`);
   });
   it(`comments items have right format`, () => {
-    assert.ok(utils.lengthOfRightCommentsArr(generateEntity.comments) === generateEntity.comments.length, true);
+    assert.ok(lengthOfRightCommentsArr(generateEntity.comments) === generateEntity.comments.length, true);
   });
 
 
@@ -95,7 +98,7 @@ describe(`generateEntity`, () => {
   });
   it(`date have right format`, () => {
     assert.ok(generateEntity.date <= Date.now(), true);
-    assert.ok(generateEntity.date >= Date.now() - utils.MILLISECONDS_IN_WEEK, true);
+    assert.ok(generateEntity.date >= Date.now() - MILLISECONDS_IN_WEEK, true);
   });
 });
 
