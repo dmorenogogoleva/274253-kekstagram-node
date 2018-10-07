@@ -1,8 +1,6 @@
-const crypto = require(`crypto`);
 const utils = require(`../utils`);
 
 const {EFFECTS, MILLISECONDS_IN_WEEK} = utils;
-
 
 const DESCRIPTION_MAX_LENGTH = 140;
 const COMMENT_MAX_LENGTH = 140;
@@ -14,9 +12,14 @@ const getRandomNum = (min, max) => {
 };
 
 const getRandomString = (length) => {
-  return length < 2
-    ? crypto.randomBytes(1).toString(`hex`)
-    : crypto.randomBytes(length / 2).toString(`hex`);
+  let text = ``;
+  const possible = `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789`;
+
+  for (let i = 0; i < length; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+
+  return text;
 };
 
 const getCommentsArray = () => {
