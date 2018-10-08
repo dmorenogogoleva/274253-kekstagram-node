@@ -1,6 +1,6 @@
 const utils = require(`../utils`);
 
-const { EFFECTS, MILLISECONDS_IN_WEEK } = utils;
+const {EFFECTS, MILLISECONDS_IN_WEEK} = utils;
 
 const DESCRIPTION_MAX_LENGTH = 140;
 const COMMENT_MAX_LENGTH = 140;
@@ -52,7 +52,6 @@ const generateEntity = (quantity) => {
       date: getRandomNum(Date.now() - MILLISECONDS_IN_WEEK, Date.now()),
     });
   }
-  console.log(`generateEntity`, arr);
   return arr;
 };
 
