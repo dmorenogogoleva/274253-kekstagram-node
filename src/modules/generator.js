@@ -1,4 +1,5 @@
 const utils = require(`../utils`);
+require(`colors`);
 
 const {EFFECTS, MILLISECONDS_IN_WEEK} = utils;
 
@@ -39,8 +40,14 @@ const getHashtagsArray = () => {
 };
 
 const generateEntity = (quantity) => {
+  const numQuantity = Number(quantity.trim());
+  if (isNaN(numQuantity) || numQuantity === 0) {
+    const error = new Error([`Количество элементов должно быть числом`.red]);
+    throw error;
+  }
+
   const arr = [];
-  for (let i = 0; i < quantity; i++) {
+  for (let i = 0; i < numQuantity; i++) {
     arr.push({
       url: `http://placecorgi.com/600/${getRandomNum(200, 800)}`,
       scale: getRandomNum(0, 100),
