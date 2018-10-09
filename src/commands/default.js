@@ -3,7 +3,6 @@ const fs = require(`fs`);
 const {promisify} = require(`util`);
 const generator = require(`../modules/generator`);
 require(`colors`);
-const writeToFile = promisify(fs.writeFile);
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -19,11 +18,7 @@ const generateData = () => {
       if (fs.existsSync(path)) {
         overwriteFile(path, data);
       } else {
-        try {
-          await writeToFile(path, JSON.stringify(data));
-        } catch (err) {
-          console.log(err.message);
-        }
+        writeToFile(path, data);
         rl.close();
       }
     });
@@ -31,14 +26,10 @@ const generateData = () => {
 };
 
 const overwriteFile = (path, data) => {
-  rl.question(`Такой файл уже существует. Перезаписать? 'yes' или 'no' `.cyan, async (answer) => {
+  rl.question(`Такой файл уже существует. Перезаписать? 'yes' или 'no' `.cyan, (answer) => {
     switch (answer) {
       case `yes`:
-        try {
-          await writeToFile(path, JSON.stringify(data));
-        } catch (err) {
-          console.log(err.message);
-        }
+        writeToFile(path, data);
         break;
       case `no`:
         console.log(`Не перезаписывать файл`);
@@ -49,6 +40,14 @@ const overwriteFile = (path, data) => {
     }
     rl.close();
   });
+};
+
+const writeToFile = async (path, data) => {
+  try {
+    await promisify(fs.writeFile)(path, JSON.stringify(data));
+  } catch (err) {
+    console.log(err.message);
+  }
 };
 
 module.exports = {
