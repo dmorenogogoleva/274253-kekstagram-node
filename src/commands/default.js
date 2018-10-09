@@ -4,6 +4,8 @@ const {promisify} = require(`util`);
 const generator = require(`../modules/generator`);
 require(`colors`);
 
+const writeFile = promisify(fs.writeFile);
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -44,7 +46,7 @@ const overwriteFile = (path, data) => {
 
 const writeToFile = async (path, data) => {
   try {
-    await promisify(fs.writeFile)(path, JSON.stringify(data));
+    await writeFile(path, JSON.stringify(data));
   } catch (err) {
     console.log(err.message);
   }
