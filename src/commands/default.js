@@ -12,7 +12,7 @@ const rl = readline.createInterface({
 });
 
 const generateData = () => {
-  rl.question(`Сколько элементов хочешь создать? `.cyan, (answer) => {
+  rl.question(`Сколько элементов хочешь создать? Введи число `.cyan, (answer) => {
     const data = generator.generateEntity(answer);
 
     rl.question(`Укажи путь до файла в котором ты хочешь сохранить данные `.cyan, (path) => {
@@ -31,7 +31,7 @@ const generateData = () => {
 };
 
 const overwriteFile = (path, data) => {
-  rl.question(`Такой файл уже существует. Перезаписать? `.cyan, (answer) => {
+  rl.question(`Такой файл уже существует. Перезаписать? 'yes' или 'no' `.cyan, (answer) => {
     switch (answer) {
       case `yes`:
         writeToFile(path, JSON.stringify(data));
@@ -52,7 +52,7 @@ module.exports = {
   name: `default`,
   description: `Shows default message`,
   execute() {
-    rl.question(`Привет! Хочешь сгенерировать данные?))00) `.cyan, (answer) => {
+    rl.question(`Привет! Хочешь сгенерировать данные? 'yes' или 'no'  `.cyan, (answer) => {
       switch (answer.toLowerCase()) {
         case `yes`:
           generateData();
