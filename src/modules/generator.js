@@ -1,4 +1,5 @@
 const utils = require(`../utils`);
+require(`colors`);
 
 const {EFFECTS, MILLISECONDS_IN_WEEK} = utils;
 
@@ -38,16 +39,28 @@ const getHashtagsArray = () => {
   return arr;
 };
 
-const generateEntity = () => ({
-  url: `http://placecorgi.com/600/${getRandomNum(200, 800)}`,
-  scale: getRandomNum(0, 100),
-  effect: EFFECTS[getRandomNum(0, EFFECTS.length - 1)],
-  hashtags: getHashtagsArray(),
-  description: getRandomString(getRandomNum(1, DESCRIPTION_MAX_LENGTH)),
-  likes: getRandomNum(0, 1000),
-  comments: getCommentsArray(),
-  date: getRandomNum(Date.now() - MILLISECONDS_IN_WEEK, Date.now()),
-});
+const generateEntity = (quantity) => {
+  const numQuantity = Number(quantity);
+  if (isNaN(numQuantity) || numQuantity === 0) {
+    console.log(`Количество элементов должно быть числом`.red);
+    process.exit(1);
+  }
+
+  const arr = [];
+  for (let i = 0; i < numQuantity; i++) {
+    arr.push({
+      url: `http://placecorgi.com/600/${getRandomNum(200, 800)}`,
+      scale: getRandomNum(0, 100),
+      effect: EFFECTS[getRandomNum(0, EFFECTS.length - 1)],
+      hashtags: getHashtagsArray(),
+      description: getRandomString(getRandomNum(1, DESCRIPTION_MAX_LENGTH)),
+      likes: getRandomNum(0, 1000),
+      comments: getCommentsArray(),
+      date: getRandomNum(Date.now() - MILLISECONDS_IN_WEEK, Date.now()),
+    });
+  }
+  return arr;
+};
 
 
 module.exports = {generateEntity};
