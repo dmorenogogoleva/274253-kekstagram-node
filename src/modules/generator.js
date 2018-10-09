@@ -42,8 +42,8 @@ const getHashtagsArray = () => {
 const generateEntity = (quantity) => {
   const numQuantity = Number(quantity);
   if (isNaN(numQuantity) || numQuantity === 0) {
-    const error = new Error([`Количество элементов должно быть числом`.red]);
-    throw error;
+    console.log(`Количество элементов должно быть числом`.red);
+    process.exit(1);
   }
 
   const arr = [];
