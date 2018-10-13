@@ -5,40 +5,12 @@ const pathUtil = require(`path`);
 const {promisify} = require(`util`);
 
 const HOSTNAME = `127.0.0.1`;
-const PORT = process.argv[2] || 3000;
+const PORT = process.argv[3] || 3000;
 
 const stat = promisify(fs.stat);
 const readdir = promisify(fs.readdir);
 const readfile = promisify(fs.readFile);
 
-const server = http.createServer((req, res) => {
-  const localPath = url.parse(req.url).pathname;
-  const absolutePath = `${__dirname}/static/${localPath}`;
-
-  (async () => {
-    try {
-      const pathStat = await stat(absolutePath);
-      console.log(pathStat);
-
-      res.statusCode = 200;
-      res.statusMessage = `OK`;
-
-      if (pathStat.isDirectory()) {
-        await readDir(absolutePath, localPath, res);
-      } else {
-        await readFile(absolutePath, res);
-      }
-    } catch (e) {
-      res.writeHead(404, `Not Found`);
-      res.end();
-    }
-  })().catch((e) => {
-    res.writeHead(500, e.message, {
-      'content-type': `text/plain`
-    });
-    res.end(e.message);
-  });
-});
 
 const readDir = async (path, relativePath, res) => {
   const files = await readdir(path);
@@ -101,10 +73,48 @@ const getConentType = (path) => {
   return contentType;
 };
 
-server.listen(PORT, HOSTNAME, (err) => {
-  if (err) {
-    console.error(err);
-    return;
+module.exports = {
+  name: `server`,
+  description: `Starts kekstagram server`,
+  execute() {
+    const server = http.createServer((req, res) => {
+      const localPath = url.parse(req.url).pathname;
+      const absolutePath = `${__dirname}/static/${localPath}`;
+
+      (async () => {
+        try {
+          const pathStat = await stat(absolutePath);
+          console.log(pathStat);
+
+          res.statusCode = 200;
+          res.statusMessage = `OK`;
+
+          if (pathStat.isDirectory()) {
+            await readDir(absolutePath, localPath, res);
+          } else {
+            await readFile(absolutePath, res);
+          }
+        } catch (e) {
+          res.writeHead(404, `Not Found`);
+          res.end();
+        }
+      })().catch((e) => {
+        res.writeHead(500, e.message, {
+          'content-type': `text/plain`
+        });
+        res.end(e.message);
+      });
+    });
+
+
+    server.listen(PORT, HOSTNAME, (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log(`Server running at http://${HOSTNAME}:${PORT}`);
+    });
   }
-  console.log(`Server running at http://${HOSTNAME}:${PORT}`);
-});
+};
+
+
