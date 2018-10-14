@@ -4,6 +4,7 @@ const modules = [
   require(`./src/commands/license`),
   require(`./src/commands/author`),
   require(`./src/commands/help`),
+  require(`./src/commands/server`),
 ];
 const defaultModule = require(`./src/commands/default`);
 const errorModule = require(`./src/commands/error`);
@@ -19,7 +20,6 @@ if (userCommand === undefined) {
     process.exit(1);
   } else {
     currentCommand.execute();
-    process.exit(0);
   }
 }
 
