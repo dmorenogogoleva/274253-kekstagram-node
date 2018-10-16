@@ -1,7 +1,10 @@
 const express = require(`express`);
+const postsRouter = require(`../posts/route`);
 const app = express();
 
 app.use(express.static(`${__dirname}/../../static`));
+
+app.use(`/api/posts`, postsRouter);
 
 const runServer = (port) => {
 
