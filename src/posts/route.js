@@ -12,6 +12,11 @@ postsRouter.get(``, (req, res) => {
 postsRouter.get(`/:date`, (req, res) => {
   const date = req.params.date;
   const found = posts.find((post) => +(post.date) === +(date));
+
+  if (!found) {
+    throw new Error(`Пост с датой "${date}" не найден`);
+  }
+
   res.send(found);
 });
 

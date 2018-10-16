@@ -4,7 +4,7 @@ const modules = [
   require(`./src/commands/license`),
   require(`./src/commands/author`),
   require(`./src/commands/help`),
-  require(`./src/commands/server`),
+  require(`./src/modules/server`),
 ];
 const defaultModule = require(`./src/commands/default`);
 const errorModule = require(`./src/commands/error`);
