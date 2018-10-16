@@ -6,7 +6,12 @@ const postsGenerator = require(`../modules/generator`);
 const posts = postsGenerator.generateEntity(10);
 
 postsRouter.get(``, (req, res) => {
-  res.send(posts);
+
+  const skipPosts = req.query.skip;
+  const limitPosts = req.query.limit;
+
+  const requestedPosts = posts.slice(skipPosts, limitPosts);
+  res.send(requestedPosts || posts);
 });
 
 postsRouter.get(`/:date`, (req, res) => {
@@ -19,5 +24,6 @@ postsRouter.get(`/:date`, (req, res) => {
 
   res.send(found);
 });
+
 
 module.exports = postsRouter;
