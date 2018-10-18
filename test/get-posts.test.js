@@ -55,12 +55,12 @@ describe(`GET /api/posts/:date`, () => {
     assert.strictEqual(post.date, firstPostDate);
   });
 
-  it(`get unknown post with date 0439372069749`, async () => {
+  it(`get unknown post with date дата`, async () => {
     return request(app).
-      get(`/api/posts/0439372069749`).
+      get(`/api/posts/дата`).
       set(`Accept`, `application/json`).
-      expect(500).
-      expect(`Пост с датой "0439372069749" не найден`).
+      expect(404).
+      expect(`Пост с датой "дата" не найден`).
       expect(`Content-Type`, /html/);
   });
 });
