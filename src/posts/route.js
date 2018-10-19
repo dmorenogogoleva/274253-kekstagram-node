@@ -6,20 +6,13 @@ const IllegalArgumentError = require(`../errors/illegal-argument-error`);
 const NotFoundError = require(`../errors/not-found-error`);
 const ValidationError = require(`../errors/validation-error`);
 const validate = require(`./validation`);
+const queryParametrsValidation = require(`./queryParametrsValidation`);
 
 const posts = postsGenerator.generateEntity(10);
 
 postsRouter.get(``, (req, res) => {
-  const queriesParams = [req.query.skip, req.query.limit];
-
-  const invalidQuery = queriesParams.find((que) => isNaN(que));
-
-  if (invalidQuery) {
-    throw new ValidationError(`Field ${invalidQuery} should be a number!`);
-  }
-
-  const requestedPosts = posts.slice(queriesParams[0], queriesParams[1]);
-
+  const {skip, limit} = req.query;
+  const requestedPosts = queryParametrsValidation(posts, skip, limit);
   res.send(requestedPosts || posts);
 });
 
