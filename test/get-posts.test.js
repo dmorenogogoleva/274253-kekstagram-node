@@ -56,10 +56,10 @@ describe(`GET /api/posts/:date`, () => {
   });
 
 
-  it(`get unknown post with date unknownPost`, async (done) => {
+  it(`get unknown post with date unknownPost`, () => {
     request(app).
       get(`/api/posts/unknownPost`).
       set(`Accept`, `application/json`).
-      expect(404, done());
+      expect(404);
   });
 });
