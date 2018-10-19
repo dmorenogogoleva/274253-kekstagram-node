@@ -4,11 +4,13 @@ const modules = [
   require(`./src/commands/license`),
   require(`./src/commands/author`),
   require(`./src/commands/help`),
-  require(`./src/commands/server`),
+  require(`./src/modules/server`),
 ];
 const defaultModule = require(`./src/commands/default`);
 const errorModule = require(`./src/commands/error`);
-const userCommand = process.argv[2];
+
+const args = process.argv.slice(2);
+const userCommand = args[0];
 
 if (userCommand === undefined) {
   defaultModule.execute();
@@ -19,8 +21,6 @@ if (userCommand === undefined) {
     errorModule.execute(userCommand);
     process.exit(1);
   } else {
-    currentCommand.execute();
+    currentCommand.execute(args);
   }
 }
-
-
