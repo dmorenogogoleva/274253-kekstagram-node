@@ -55,10 +55,11 @@ describe(`GET /api/posts/:date`, () => {
     assert.strictEqual(post.date, firstPostDate);
   });
 
-  it(`get unknown post with date дата`, () => {
+
+  it(`get unknown post with date unknownPost`, async (done) => {
     request(app).
-      get(`/api/posts/дата`).
+      get(`/api/posts/unknownPost`).
       set(`Accept`, `application/json`).
-      expect(404);
+      expect(404, done());
   });
 });
