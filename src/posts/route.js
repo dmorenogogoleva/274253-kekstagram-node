@@ -1,4 +1,5 @@
 const express = require(`express`);
+const multer = require(`multer`);
 // eslint-disable-next-line new-cap
 const postsRouter = express.Router();
 const postsGenerator = require(`../modules/generator`);
@@ -9,6 +10,9 @@ const validate = require(`./validation`);
 const queryParametrsValidation = require(`./queryParametrsValidation`);
 
 const posts = postsGenerator.generateEntity(10);
+const upload = multer({storage: multer.memoryStorage()});
+const jsonParser = express.json();
+
 
 postsRouter.get(``, (req, res) => {
   const {skip, limit} = req.query;
@@ -30,6 +34,16 @@ postsRouter.get(`/:date`, (req, res) => {
   }
 
   res.send(validate(found));
+});
+
+// TODO: не работает
+postsRouter.post(``, jsonParser, upload.single(`filename`), (req, res) => {
+  const body = req.body;
+  const photo = req.file;
+  if (photo) {
+    body.photo = {url: photo.originalname};
+  }
+  res.send(body);
 });
 
 postsRouter.use((err, req, res, _next) => {
