@@ -3,7 +3,7 @@ const postsRouter = require(`../posts/route`);
 const app = express();
 
 const NOT_FOUND_HANDLER = (req, res) => {
-  res.status(404).send(`Page was not found`);
+  res.status(404).send(`Page ${req.url} was not found`);
 };
 
 const ERROR_HANDLER = (err, req, res, _next) => {

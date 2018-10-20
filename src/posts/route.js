@@ -3,7 +3,6 @@ const multer = require(`multer`);
 // eslint-disable-next-line new-cap
 const postsRouter = express.Router();
 const postsGenerator = require(`../modules/generator`);
-const IllegalArgumentError = require(`../errors/illegal-argument-error`);
 const NotFoundError = require(`../errors/not-found-error`);
 const ValidationError = require(`../errors/validation-error`);
 const validate = require(`./validation`);
@@ -16,16 +15,16 @@ const jsonParser = express.json();
 
 postsRouter.get(``, (req, res) => {
   const {skip, limit} = req.query;
-  const requestedPosts = queryParametrsValidation(posts, skip, limit);
+
+  const requestedPosts = skip || limit
+    ? queryParametrsValidation(posts, skip, limit)
+    : null;
+
   res.send(requestedPosts || posts);
 });
 
 postsRouter.get(`/:date`, (req, res) => {
-  const date = req.params.date;
-
-  if (!date) {
-    throw new IllegalArgumentError(`В запросе не указана дата`);
-  }
+  const date = validate(req.params.date);
 
   const found = posts.find((post) => +(post.date) === +(date));
 
@@ -33,7 +32,7 @@ postsRouter.get(`/:date`, (req, res) => {
     throw new NotFoundError(`Пост с датой "${date}" не найден`);
   }
 
-  res.send(validate(found));
+  res.send(found);
 });
 
 // TODO: не работает
@@ -46,10 +45,11 @@ postsRouter.post(``, jsonParser, upload.single(`filename`), (req, res) => {
   res.send(body);
 });
 
-postsRouter.use((err, req, res, _next) => {
+postsRouter.use((err, req, res, next) => {
   if (err instanceof ValidationError) {
     res.status(err.code).json(err.errors);
   }
+  next(err, req, res);
 });
 
 module.exports = postsRouter;
