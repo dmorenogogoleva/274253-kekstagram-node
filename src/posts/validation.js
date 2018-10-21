@@ -1,4 +1,4 @@
-const ValidationError = require(`../errors/validation-error`);
+const IllegalArgumentError = require(`../errors/illegal-argument-error`);
 
 const validate = (data) => {
   const errors = [];
@@ -10,7 +10,7 @@ const validate = (data) => {
     errors.push(`Field 'date' should be a number`);
   }
   if (errors.length > 0) {
-    throw new ValidationError(errors);
+    throw new IllegalArgumentError(errors);
   }
   return data;
 };

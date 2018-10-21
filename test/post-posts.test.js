@@ -72,9 +72,10 @@ describe(`POST /api/posts`, () => {
       set(`Accept`, `application/json`).
       set(`Content-Type`, `application/json`).
       expect(400).
-      expect([`Field \'date\' is required`,
-        `Field \'date\' should be a number`]).
-      expect(`Content-Type`, /json/);
+      expect({
+        "code": 400,
+        "message": `Field 'date' is required,Field 'date' should be a number`
+      }).expect(`Content-Type`, /json/);
   });
 
   it(`send invalid multipart/form-data post`, async () => {
@@ -85,8 +86,10 @@ describe(`POST /api/posts`, () => {
       set(`Accept`, `application/json`).
       set(`Content-Type`, `application/json`).
       expect(400).
-      expect([`Field \'date\' is required`,
-        `Field \'date\' should be a number`]).
+      expect({
+        "code": 400,
+        "message": `Field 'date' is required,Field 'date' should be a number`
+      }).
       expect(`Content-Type`, /json/);
   });
 });
