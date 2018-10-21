@@ -53,5 +53,41 @@ describe(`POST /api/posts`, () => {
       }
     });
   });
+
+  it(`send invalid json post`, async () => {
+
+    const sent = {
+      url: `http://placecorgi.com/600/300`,
+      scale: 1,
+      effect: `chrome`,
+      hashtags: `['#hashtag1', '#hashtag2']`,
+      description: `Emily Dickinson is one of America’s greatest and most original poets of all time`,
+      likes: `276`,
+      comments: `['She took definition as her province', 'and challenged the existing definitions of poetry and the poet’s work.']`,
+    };
+
+    await request(app).
+      post(`/api/posts`).
+      send(sent).
+      set(`Accept`, `application/json`).
+      set(`Content-Type`, `application/json`).
+      expect(400).
+      expect([`Field \'date\' is required`,
+        `Field \'date\' should be a number`]).
+      expect(`Content-Type`, /json/);
+  });
+
+  it(`send invalid multipart/form-data post`, async () => {
+
+    await request(app).
+      post(`/api/posts`).
+      attach(`filename`, `test/images/test.png`).
+      set(`Accept`, `application/json`).
+      set(`Content-Type`, `application/json`).
+      expect(400).
+      expect([`Field \'date\' is required`,
+        `Field \'date\' should be a number`]).
+      expect(`Content-Type`, /json/);
+  });
 });
 
