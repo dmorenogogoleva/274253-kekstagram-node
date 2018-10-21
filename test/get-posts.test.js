@@ -33,7 +33,7 @@ describe(`GET /api/posts`, () => {
       get(`/api/oneone`).
       set(`Accept`, `application/json`).
       expect(404).
-      expect(`Page was not found`).
+      expect(`Page /api/oneone was not found`).
       expect(`Content-Type`, /html/);
   });
 });
