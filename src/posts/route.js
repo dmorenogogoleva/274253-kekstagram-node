@@ -24,21 +24,23 @@ postsRouter.get(``, (req, res) => {
 });
 
 postsRouter.get(`/:date`, (req, res) => {
-  const date = validate(req.params.date);
+  const data = validate(req.params);
 
-  const found = posts.find((post) => +(post.date) === +(date));
+  const found = posts.find((post) => +(post.date) === +(data.date));
 
   if (!found) {
-    throw new NotFoundError(`Пост с датой "${date}" не найден`);
+    throw new NotFoundError(`Пост с датой "${data.date}" не найден`);
   }
 
   res.send(found);
 });
 
-// TODO: не работает
 postsRouter.post(``, jsonParser, upload.single(`filename`), (req, res) => {
   const body = req.body;
   const photo = req.file;
+
+  validate(body);
+
   if (photo) {
     body.photo = {url: photo.originalname};
   }

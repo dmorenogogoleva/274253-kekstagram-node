@@ -9,7 +9,8 @@ const NOT_FOUND_HANDLER = (req, res) => {
 const ERROR_HANDLER = (err, req, res, _next) => {
   if (err) {
     console.error(err);
-    res.status(err.code || 500).send(err.message);
+    res.status(err.code || 500);
+    res.json({code: err.code, message: err.message});
   }
 };
 
@@ -37,3 +38,7 @@ module.exports = {
   },
   app
 };
+
+if (require.main === module) {
+  runServer(3000);
+}
