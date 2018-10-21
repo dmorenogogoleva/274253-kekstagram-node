@@ -4,7 +4,8 @@
   "description": "server for kekstagram",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon .",
+    "start": "node .",
+    "start:monitor": "nodemon .",
     "test:lint": "eslint .",
     "test:mocha": "mocha test/**.test.* --exit",
     "test": "npm run test:lint && npm run test:mocha"
@@ -30,6 +31,7 @@
     "eslint-config-htmlacademy": "0.5.2",
     "express": "4.16.4",
     "mocha": "5.2.0",
+    "nodemon": "1.18.4",
     "supertest": "3.3.0"
   },
   "dependencies": {
