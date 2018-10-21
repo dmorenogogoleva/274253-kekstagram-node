@@ -14,11 +14,11 @@ const upload = multer({storage: multer.memoryStorage()});
 const MongoError = require(`mongodb`).MongoError;
 const jsonParser = express.json();
 
-const PAGE_DEFAULT_LIMIT = 10;
+const PHOTOS_DEFAULT_LIMIT = 50;
 
 const asyncMiddleware = (fn) => (req, res, next) => fn(req, res, next).catch(next);
 
-const toPage = async (cursor, skip = 0, limit = PAGE_DEFAULT_LIMIT) => {
+const toPage = async (cursor, skip = 0, limit = PHOTOS_DEFAULT_LIMIT) => {
   const packet = await cursor.skip(skip).limit(limit).toArray();
   return {
     data: packet,
@@ -32,13 +32,13 @@ postsRouter.get(``, asyncMiddleware(async (req, res) => {
   const {skip, limit} = req.query;
   queryParametrsValidation(posts, skip, limit);
 
-  res.send(await toPage(await postsRouter.postsStore.getAllposts(), skip, limit));
+  res.send(await toPage(await postsRouter.postsStore.getAllPosts(), skip, limit));
 }));
 
 postsRouter.get(`/:date`, asyncMiddleware(async (req, res) => {
   const data = validate(req.params);
 
-  const found = await postsRouter.postsStore.getPost(data.date);
+  const found = await postsRouter.postsStore.getPost(+(data.date));
 
   if (!found) {
     throw new NotFoundError(`Пост с датой "${data.date}" не найден`);
@@ -50,18 +50,17 @@ postsRouter.get(`/:date`, asyncMiddleware(async (req, res) => {
 postsRouter.post(``, jsonParser, upload.single(`filename`), asyncMiddleware(async (req, res) => {
   const body = req.body;
   const photo = req.file;
-
   if (photo) {
-    body.avatar = {url: photo.originalname};
+    body.photo = {url: photo.originalname};
   }
 
   const validated = validate(body);
-
   const result = await postsRouter.postsStore.save(validated);
+
   const insertedId = result.insertedId;
 
   if (photo) {
-    await postsRouter.photoStore.save(insertedId, toStream(photo.buffer));
+    await postsRouter.photosStore.save(insertedId, toStream(photo.buffer));
   }
   res.send(body);
 }));
@@ -93,8 +92,8 @@ postsRouter.use(ERROR_HANDLER);
 
 postsRouter.use(NOT_FOUND_HANDLER);
 
-module.exports = (postsStore, imagesStore) => {
+module.exports = (postsStore, photosStore) => {
   postsRouter.postsStore = postsStore;
-  postsRouter.imageStore = imagesStore;
+  postsRouter.photosStore = photosStore;
   return postsRouter;
 };

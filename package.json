@@ -6,7 +6,6 @@
   "scripts": {
     "start": "node .",
     "start:monitor": "nodemon .",
-    "mongo": "mongod --port 27017 --dbpath=/Users/macbook/mongodb",
     "test:lint": "eslint .",
     "test:mocha": "mocha test/**.test.* --exit",
     "test": "npm run test:lint && npm run test:mocha"

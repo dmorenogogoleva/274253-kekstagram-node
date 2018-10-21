@@ -1,7 +1,7 @@
 const db = require(`../database/db`);
 const mongodb = require(`mongodb`);
 
-class PhotoStore {
+class PhotosStore {
 
   async getBucket() {
     if (this._bucket) {
@@ -36,4 +36,4 @@ class PhotoStore {
 
 }
 
-module.exports = new PhotoStore();
+module.exports = new PhotosStore();
