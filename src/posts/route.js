@@ -39,7 +39,7 @@ postsRouter.get(``, asyncMiddleware(async (req, res) => {
 postsRouter.get(`/:date`, asyncMiddleware(async (req, res) => {
   const data = validate(req.params);
 
-  const found = await postsRouter.postsStore.getPost(+(data.date));
+  const found = await postsRouter.postsStore.getPost(data.date);
 
   if (!found) {
     throw new NotFoundError(`Пост с датой "${data.date}" не найден`);

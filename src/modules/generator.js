@@ -1,7 +1,7 @@
 const utils = require(`../utils`);
 require(`colors`);
 
-const {EFFECTS, MILLISECONDS_IN_WEEK} = utils;
+const { EFFECTS, MILLISECONDS_IN_WEEK } = utils;
 
 const DESCRIPTION_MAX_LENGTH = 140;
 const COMMENT_MAX_LENGTH = 140;
@@ -56,11 +56,11 @@ const generateEntity = (quantity) => {
       description: getRandomString(getRandomNum(1, DESCRIPTION_MAX_LENGTH)),
       likes: getRandomNum(0, 1000),
       comments: getCommentsArray(),
-      date: getRandomNum(Date.now() - MILLISECONDS_IN_WEEK, Date.now()),
+      date: `${getRandomNum(Date.now() - MILLISECONDS_IN_WEEK, Date.now())}`,
     });
   }
   return arr;
 };
 
 
-module.exports = {generateEntity};
+module.exports = { generateEntity };
