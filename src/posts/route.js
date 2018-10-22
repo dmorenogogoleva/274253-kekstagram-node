@@ -50,9 +50,9 @@ postsRouter.get(`/:date`, asyncMiddleware(async (req, res) => {
 
 postsRouter.post(``, jsonParser, upload.single(`filename`), asyncMiddleware(async (req, res) => {
   const body = req.body;
-  const photo = req.file;
-  if (photo) {
-    body.photo = {url: photo.originalname};
+  const image = req.file;
+  if (image) {
+    body.image = {url: image.originalname};
   }
 
   const validated = validate(body);
@@ -60,13 +60,13 @@ postsRouter.post(``, jsonParser, upload.single(`filename`), asyncMiddleware(asyn
 
   const insertedId = result.insertedId;
 
-  if (photo) {
-    await postsRouter.photosStore.save(insertedId, toStream(photo.buffer));
+  if (image) {
+    await postsRouter.imagesStore.save(insertedId, toStream(image.buffer));
   }
   res.send(body);
 }));
 
-postsRouter.get(`/:date/photo`, asyncMiddleware(async (req, res) => {
+postsRouter.get(`/:date/image`, asyncMiddleware(async (req, res) => {
   const postDate = req.params.date;
 
   if (!postDate) {
@@ -80,7 +80,7 @@ postsRouter.get(`/:date/photo`, asyncMiddleware(async (req, res) => {
     throw new NotFoundError(`Пост с датой "${postDate}" не найден`);
   }
 
-  const result = await postsRouter.photosStore.get(found._id);
+  const result = await postsRouter.imagesStore.get(found._id);
   if (!result) {
     throw new NotFoundError(`Фото для поста с датой "${postDate}" не найдено`);
   }
@@ -123,8 +123,8 @@ postsRouter.use(ERROR_HANDLER);
 
 postsRouter.use(NOT_FOUND_HANDLER);
 
-module.exports = (postsStore, photosStore) => {
+module.exports = (postsStore, imagesStore) => {
   postsRouter.postsStore = postsStore;
-  postsRouter.photosStore = photosStore;
+  postsRouter.imagesStore = imagesStore;
   return postsRouter;
 };

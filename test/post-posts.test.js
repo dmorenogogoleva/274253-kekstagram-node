@@ -48,7 +48,7 @@ describe(`POST /api/posts`, () => {
 
     assert.deepEqual(post, {
       date: TEST_DATE,
-      photo: {
+      image: {
         url: `test.png`
       }
     });
