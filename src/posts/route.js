@@ -5,6 +5,7 @@ const postsRouter = express.Router();
 const postsGenerator = require(`../modules/generator`);
 const NotFoundError = require(`../errors/not-found-error`);
 const ValidationError = require(`../errors/validation-error`);
+const IllegalArgumentError = require(`../errors/illegal-argument-error`);
 const validate = require(`./validation`);
 const toStream = require(`buffer-to-stream`);
 const queryParametrsValidation = require(`./queryParametrsValidation`);
@@ -63,6 +64,36 @@ postsRouter.post(``, jsonParser, upload.single(`filename`), asyncMiddleware(asyn
     await postsRouter.photosStore.save(insertedId, toStream(photo.buffer));
   }
   res.send(body);
+}));
+
+postsRouter.get(`/:date/photo`, asyncMiddleware(async (req, res) => {
+  const postDate = req.params.date;
+
+  if (!postDate) {
+    throw new IllegalArgumentError(`В запросе не указана дата`);
+  }
+
+  const date = postDate;
+  const found = await postsRouter.postsStore.getPost(date);
+
+  if (!found) {
+    throw new NotFoundError(`Пост с датой "${postDate}" не найден`);
+  }
+
+  const result = await postsRouter.photosStore.get(found._id);
+  if (!result) {
+    throw new NotFoundError(`Фото для поста с датой "${postDate}" не найдено`);
+  }
+
+  res.header(`Content-Type`, `image/jpg`);
+  res.header(`Content-Length`, result.info.length);
+
+  res.on(`error`, (e) => console.error(e));
+  res.on(`end`, () => res.end());
+  const stream = result.stream;
+  stream.on(`error`, (e) => console.error(e));
+  stream.on(`end`, () => res.end());
+  stream.pipe(res);
 }));
 
 postsRouter.use((err, req, res, next) => {
