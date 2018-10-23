@@ -4,7 +4,7 @@
   "description": "server for kekstagram",
   "main": "index.js",
   "scripts": {
-    "start": "node .",
+    "start": "node . --server",
     "start:monitor": "nodemon .",
     "test:lint": "eslint .",
     "test:mocha": "mocha test/**.test.* --exit",
