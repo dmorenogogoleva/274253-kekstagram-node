@@ -1,7 +1,7 @@
 const utils = require(`../utils`);
 require(`colors`);
 
-const { EFFECTS, MILLISECONDS_IN_WEEK } = utils;
+const {EFFECTS, MILLISECONDS_IN_WEEK} = utils;
 
 const DESCRIPTION_MAX_LENGTH = 140;
 const COMMENT_MAX_LENGTH = 140;
@@ -40,7 +40,7 @@ const getHashtagsArray = () => {
 };
 
 const generateEntity = (quantity) => {
-  const numQuantity = Number(quantity);
+  const numQuantity = Number(quantity) || 10;
   if (isNaN(numQuantity) || numQuantity === 0) {
     console.log(`Количество элементов должно быть числом`.red);
     process.exit(1);
@@ -63,4 +63,4 @@ const generateEntity = (quantity) => {
 };
 
 
-module.exports = { generateEntity };
+module.exports = {generateEntity};

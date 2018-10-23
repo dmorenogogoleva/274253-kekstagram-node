@@ -2,7 +2,6 @@ const IllegalArgumentError = require(`../errors/illegal-argument-error`);
 
 const validate = (data) => {
   const errors = [];
-
   if (!data.date) {
     errors.push(`Field 'date' is required`);
   }
