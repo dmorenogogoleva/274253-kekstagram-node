@@ -24,20 +24,8 @@ describe(`GET /api/posts`, () => {
     assert.equal(posts.data.length, 10);
   });
 
-  it(`get all posts with / at the end`, async () => {
-
-    const response = await request(app).
-      get(`/api/posts/`).
-      set(`Accept`, `application/json`).
-      expect(200).
-      expect(`Content-Type`, /json/);
-
-    const posts = response.body;
-    assert.equal(posts.data.length, 10);
-  });
-
-  it(`get data from unknown resource`, async () => {
-    return await request(app).
+  it(`get data from unknown resource`, async () => { // TODO: не работает
+    await request(app).
       get(`/api/oneone`).
       set(`Accept`, `application/json`).
       expect(404).

@@ -37,7 +37,7 @@ postsRouter.get(``, asyncMiddleware(async (req, res) => {
 }));
 
 postsRouter.get(`/:date`, asyncMiddleware(async (req, res) => {
-  const data = validate(req.params);
+  const data = req.params;
 
   const found = await postsRouter.postsStore.getPost(data.date);
 

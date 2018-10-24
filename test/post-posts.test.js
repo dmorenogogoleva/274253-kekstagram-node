@@ -13,10 +13,10 @@ app.use(`/api/posts`, postsRoute);
 const TEST_DATE = `${Date.now() - 1}`;
 
 describe(`POST /api/posts`, () => {
-  it(`send post as json`, async () => {
+  it(`send post`, async () => {
 
     const sent = {
-      url: `http://placecorgi.com/600/300`,
+      filename: `test/images/test.png`,
       scale: 1,
       effect: `chrome`,
       hashtags: `['#hashtag1', '#hashtag2']`,
@@ -39,48 +39,18 @@ describe(`POST /api/posts`, () => {
     assert.deepEqual(post, sent);
   });
 
-  it(`send post as multipart/form-data`, async () => {
-
+  it(`send invalid post`, async () => {
     const response = await request(app).
       post(`/api/posts`).
-      field(`date`, TEST_DATE).
-      attach(`filename`, `test/images/test.png`).
-      set(`Accept`, `application/json`).
-      set(`Content-Type`, `multipart/form-data`).
-      expect(200).
-      expect(`Content-Type`, /json/);
-
-
-    const post = response.body;
-    assert.deepEqual(post, {
-      date: TEST_DATE,
-      image: {
-        url: `test.png`
-      }
-    });
-  });
-
-  it(`send invalid json post`, async () => {
-    const response = await request(app).
-      post(`/api/posts`).
-      send({}).
+      send({
+        image: {url: `test/images/test.png`},
+        scale: 1,
+      }).
       set(`Accept`, `application/json`).
       set(`Content-Type`, `application/json`).
       expect(400);
 
-    assert.deepEqual(response.error.text, `Field 'date' is required`);
-  });
-
-  it(`send invalid multipart/form-data post`, async () => {
-
-    const response = await request(app).
-      post(`/api/posts`).
-      attach(`filename`, `test/images/test.png`).
-      set(`Accept`, `application/json`).
-      set(`Content-Type`, `application/json`).
-      expect(400);
-
-    assert.deepEqual(response.error.text, `Field 'date' is required`);
+    assert.deepEqual(response.error.text, `Field 'effect' is required`);
   });
 });
 
