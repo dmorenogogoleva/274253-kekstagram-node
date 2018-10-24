@@ -4,7 +4,6 @@ class MockImageStore {
   }
 
   async save() {
-
   }
 
 }

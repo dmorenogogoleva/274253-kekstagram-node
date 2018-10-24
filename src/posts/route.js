@@ -100,12 +100,11 @@ postsRouter.use((err, req, res, next) => {
   if (err instanceof ValidationError) {
     res.status(err.code).json(err.errors);
   }
+  if (err instanceof NotFoundError) {
+    res.status(404).json(err.errors);
+  }
   next(err, req, res);
 });
-
-const NOT_FOUND_HANDLER = (req, res) => {
-  res.status(404).send(`Page was not found`);
-};
 
 const ERROR_HANDLER = (err, req, res, _next) => {
   console.error(err);
@@ -115,13 +114,13 @@ const ERROR_HANDLER = (err, req, res, _next) => {
   } else if (err instanceof MongoError) {
     res.status(400).json(err.message);
     return;
+  } else if (err instanceof NotFoundError) {
+    res.status(404).json(err.message);
   }
   res.status(err.code || 500).send(err.message);
 };
 
 postsRouter.use(ERROR_HANDLER);
-
-postsRouter.use(NOT_FOUND_HANDLER);
 
 module.exports = (postsStore, imagesStore) => {
   postsRouter.postsStore = postsStore;

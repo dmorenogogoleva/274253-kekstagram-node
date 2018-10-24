@@ -41,7 +41,7 @@ describe(`GET /api/posts`, () => {
       get(`/api/oneone`).
       set(`Accept`, `application/json`).
       expect(404).
-      expect(`Content-Type`, /html/);
+      expect(`Content-Type`, /json/);
   });
 });
 
@@ -66,6 +66,7 @@ describe(`GET /api/posts/:date`, () => {
     request(app).
       get(`/api/posts/unknownPost`).
       set(`Accept`, `application/json`).
-      expect(404);
+      expect(404).
+      expect(`Content-Type`, /json/);
   });
 });
