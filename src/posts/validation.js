@@ -22,6 +22,9 @@ const validate = (data) => {
   if (data.description !== undefined && checkDescriptionField(data.description)) {
     errors.push(`Field 'description' should be less than 140ch`);
   }
+  if (!data.date) {
+    data.date = Date.now();
+  }
   if (errors.length > 0) {
     throw new IllegalArgumentError(errors.join(`\n`));
   }
