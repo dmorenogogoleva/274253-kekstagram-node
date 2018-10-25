@@ -93,8 +93,8 @@ describe(`generateEntity`, () => {
   it(`func returns date`, () => {
     assert.ok(generateEntity.date, true);
   });
-  it(`date is an number`, () => {
-    assert.strictEqual(typeof generateEntity.date, `number`);
+  it(`date is an string`, () => {
+    assert.strictEqual(typeof generateEntity.date, `string`);
   });
   it(`date have right format`, () => {
     assert.ok(generateEntity.date <= Date.now(), true);

@@ -1,4 +1,5 @@
-const REGEXP_HASHTAG = /^#[а-яa-z0-9]{1,20}$/i;
+const utils = require(`../src/utils`);
+const {REGEXP_HASHTAG} = utils;
 
 module.exports = {
   REGEXP_URL: /^(https?:\/\/)?([\w\.]+)\.([a-z]{2,6}\.?)(\/[\w\.]*)*\/?$/,

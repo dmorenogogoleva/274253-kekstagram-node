@@ -40,7 +40,7 @@ const getHashtagsArray = () => {
 };
 
 const generateEntity = (quantity) => {
-  const numQuantity = Number(quantity);
+  const numQuantity = Number(quantity) || 10;
   if (isNaN(numQuantity) || numQuantity === 0) {
     console.log(`Количество элементов должно быть числом`.red);
     process.exit(1);
@@ -56,7 +56,7 @@ const generateEntity = (quantity) => {
       description: getRandomString(getRandomNum(1, DESCRIPTION_MAX_LENGTH)),
       likes: getRandomNum(0, 1000),
       comments: getCommentsArray(),
-      date: getRandomNum(Date.now() - MILLISECONDS_IN_WEEK, Date.now()),
+      date: `${getRandomNum(Date.now() - MILLISECONDS_IN_WEEK, Date.now())}`,
     });
   }
   return arr;
