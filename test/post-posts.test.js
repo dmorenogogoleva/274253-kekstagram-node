@@ -50,7 +50,7 @@ describe(`POST /api/posts`, () => {
       set(`Content-Type`, `application/json`).
       expect(400);
 
-    assert.deepEqual(response.error.text, `Field 'effect' is required`);
+    assert.deepEqual(response.error.text, `"Field 'effect' is required"`);
   });
 });
 
