@@ -1,4 +1,4 @@
-const IllegalArgumentError = require(`../errors/illegal-argument-error`);
+const ValidationError = require(`../errors/validation-error`);
 const utils = require(`../utils`);
 const {checkHastagsField, checkScaleField, checkDescriptionField} = utils;
 
@@ -26,7 +26,7 @@ const validate = (data) => {
     data.date = Date.now();
   }
   if (errors.length > 0) {
-    throw new IllegalArgumentError(errors.join(`\n`));
+    throw new ValidationError(errors.join(`\n`));
   }
   return data;
 };

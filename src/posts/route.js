@@ -5,7 +5,6 @@ const postsRouter = express.Router();
 const postsGenerator = require(`../modules/generator`);
 const NotFoundError = require(`../errors/not-found-error`);
 const ValidationError = require(`../errors/validation-error`);
-const IllegalArgumentError = require(`../errors/illegal-argument-error`);
 const validate = require(`./validation`);
 const toStream = require(`buffer-to-stream`);
 const queryParametrsValidation = require(`./queryParametrsValidation`);
@@ -30,7 +29,7 @@ const toPage = async (cursor, skip = 0, limit = PHOTOS_DEFAULT_LIMIT) => {
 };
 
 postsRouter.get(``, asyncMiddleware(async (req, res) => {
-  const {skip, limit} = req.query;
+  const { skip, limit } = req.query;
   queryParametrsValidation(posts, skip, limit);
 
   res.send(await toPage(await postsRouter.postsStore.getAllPosts(), skip, limit));
@@ -70,7 +69,7 @@ postsRouter.get(`/:date/image`, asyncMiddleware(async (req, res) => {
   const postDate = req.params.date;
 
   if (!postDate) {
-    throw new IllegalArgumentError(`В запросе не указана дата`);
+    throw new ValidationError(`В запросе не указана дата`);
   }
 
   const date = postDate;
@@ -97,12 +96,6 @@ postsRouter.get(`/:date/image`, asyncMiddleware(async (req, res) => {
 }));
 
 postsRouter.use((err, req, res, next) => {
-  if (err instanceof ValidationError) {
-    res.status(err.code).json(err.errors);
-  }
-  if (err instanceof NotFoundError) {
-    res.status(404).json(err.errors);
-  }
   next(err, req, res);
 });
 
