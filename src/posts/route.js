@@ -29,7 +29,7 @@ const toPage = async (cursor, skip = 0, limit = PHOTOS_DEFAULT_LIMIT) => {
 };
 
 postsRouter.get(``, asyncMiddleware(async (req, res) => {
-  const { skip, limit } = req.query;
+  const {skip, limit} = req.query;
   queryParametrsValidation(posts, skip, limit);
 
   res.send(await toPage(await postsRouter.postsStore.getAllPosts(), skip, limit));

@@ -29,7 +29,7 @@ describe(`GET /api/posts`, () => {
       get(`/api/oneone`).
       set(`Accept`, `application/json`).
       expect(404).
-      expect(`Content-Type`, /json/);
+      expect(`Content-Type`, /html/);
   });
 });
 
