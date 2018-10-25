@@ -19,7 +19,7 @@ describe(`POST /api/posts`, () => {
       filename: `test/images/test.png`,
       scale: 1,
       effect: `chrome`,
-      hashtags: `['#hashtag1', '#hashtag2']`,
+      hashtags: `#hashtag1, #hashtag2`,
       description: `Emily Dickinson is one of America’s greatest and most original poets of all time`,
       likes: `276`,
       comments: `['She took definition as her province', 'and challenged the existing definitions of poetry and the poet’s work.']`,
@@ -43,7 +43,7 @@ describe(`POST /api/posts`, () => {
     const response = await request(app).
       post(`/api/posts`).
       send({
-        image: {url: `test/images/test.png`},
+        filename: `test/images/test.png`,
         scale: 1,
       }).
       set(`Accept`, `application/json`).

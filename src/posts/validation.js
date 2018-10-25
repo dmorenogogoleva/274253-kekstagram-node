@@ -4,7 +4,7 @@ const {checkHastagsField, checkScaleField, checkDescriptionField} = utils;
 
 const validate = (data) => {
   const errors = [];
-  if (!data.image) {
+  if (!data.filename) {
     errors.push(`Field 'filename' is required. It should be image formatted jpg || png`);
   }
   if (!data.scale) {
