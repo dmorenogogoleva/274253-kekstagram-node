@@ -19,7 +19,7 @@ const PHOTOS_DEFAULT_LIMIT = 50;
 const asyncMiddleware = (fn) => (req, res, next) => fn(req, res, next).catch(next);
 
 const toPage = async (cursor, skip = 0, limit = PHOTOS_DEFAULT_LIMIT) => {
-  const packet = await cursor.skip(skip).limit(limit).toArray();
+  const packet = await cursor.skip(parseInt(skip, 10)).limit(parseInt(limit, 10)).toArray();
   return {
     data: packet,
     skip,
