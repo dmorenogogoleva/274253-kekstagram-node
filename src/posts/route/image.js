@@ -1,7 +1,7 @@
 const asyncMiddleware = require(`./async-middleware`);
 const ValidationError = require(`../../errors/validation-error`);
 const NotFoundError = require(`../../errors/not-found-error`);
-const logger = require(`../logger`);
+const logger = require(`../../logger`);
 
 module.exports = (postsRouter) => {
   postsRouter.get(`/:date/image`, asyncMiddleware(async (req, res) => {
