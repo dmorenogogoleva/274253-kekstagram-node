@@ -9,9 +9,7 @@ app.use(express.static(`${__dirname}/../../static`));
 app.use(`/api/posts`, postsRouter);
 
 const runServer = (port) => {
-
   port = parseInt(port, 10);
-
   app.listen(port, () => console.log(`Сервер запущен: http://localhost:${port}`));
 };
 
