@@ -1,6 +1,7 @@
 const asyncMiddleware = require(`./async-middleware`);
 const ValidationError = require(`../../errors/validation-error`);
 const NotFoundError = require(`../../errors/not-found-error`);
+const logger = require(`../logger`);
 
 module.exports = (postsRouter) => {
   postsRouter.get(`/:date/image`, asyncMiddleware(async (req, res) => {
@@ -25,10 +26,10 @@ module.exports = (postsRouter) => {
     res.header(`Content-Type`, `image/jpg`);
     res.header(`Content-Length`, result.info.length);
 
-    res.on(`error`, (e) => console.error(e));
+    res.on(`error`, (e) => logger.error(e));
     res.on(`end`, () => res.end());
     const stream = result.stream;
-    stream.on(`error`, (e) => console.error(e));
+    stream.on(`error`, (e) => logger.error(e));
     stream.on(`end`, () => res.end());
     stream.pipe(res);
   }));

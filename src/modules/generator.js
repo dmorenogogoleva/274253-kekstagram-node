@@ -1,5 +1,6 @@
 const utils = require(`../utils`);
 require(`colors`);
+const logger = require(`../logger`);
 
 const {EFFECTS, MILLISECONDS_IN_WEEK} = utils;
 
@@ -42,7 +43,7 @@ const getHashtagsArray = () => {
 const generateEntity = (quantity) => {
   const numQuantity = Number(quantity) || 10;
   if (isNaN(numQuantity) || numQuantity === 0) {
-    console.log(`Количество элементов должно быть числом`.red);
+    logger.info(`Количество элементов должно быть числом`.red);
     process.exit(1);
   }
 
