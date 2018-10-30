@@ -28,6 +28,7 @@ const validate = (data) => {
   if (errors.length > 0) {
     throw new ValidationError(errors.join(`\n`));
   }
+  data.url = `api/posts/${data.date}/image`;
   return data;
 };
 
