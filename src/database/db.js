@@ -1,7 +1,12 @@
 const {MongoClient} = require(`mongodb`);
 const logger = require(`../logger`);
+const NotFoundError = require(`../errors/not-found-error`);
 
 const {DB_HOST, DB_PATH} = process.env;
+
+if (!DB_PATH.process.env) {
+  throw new NotFoundError(`Не задано имя базы данных`);
+}
 
 const url = `mongodb://${DB_HOST}`;
 
