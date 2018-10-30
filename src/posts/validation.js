@@ -16,14 +16,14 @@ const validate = (data) => {
   if (!data.effect) {
     errors.push(`Field 'effect' is required`);
   }
-  if (data.hashtags !== undefined && checkHastagsField(data.hashtags)) {
+  if (data.hashtags && checkHastagsField(data.hashtags)) {
     errors.push(`Fields '${data.hashtags}' should started with # and be less than 20ch`);
   }
-  if (data.description !== undefined && checkDescriptionField(data.description)) {
+  if (data.description && checkDescriptionField(data.description)) {
     errors.push(`Field 'description' should be less than 140ch`);
   }
   if (!data.date) {
-    data.date = Date.now();
+    data.date = `${Date.now()}`;
   }
   if (errors.length > 0) {
     throw new ValidationError(errors.join(`\n`));

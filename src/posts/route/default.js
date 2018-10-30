@@ -29,8 +29,9 @@ module.exports = (postsRouter) => {
   postsRouter.post(``, jsonParser, upload.single(`filename`), asyncMiddleware(async (req, res) => {
     const body = req.body;
     const image = req.file;
+
     if (image) {
-      body.image = {url: image.originalname};
+      body.filename = image.originalname;
     }
 
     const validated = validate(body);
