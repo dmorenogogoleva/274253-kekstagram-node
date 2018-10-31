@@ -5,9 +5,9 @@ const isNumberInRange = (value, min, max) => {
   return num > min && num < max ? true : false; // eslint-disable-line
 };
 
-const checkScaleField = (scale) => !isNumberInRange(scale, 0, 100);
+const checkScaleField = (scale) => !isNumberInRange(scale, 0, 101);
 
-const checkDescriptionField = (description) => !isNumberInRange(description.length, 0, 140);
+const checkDescriptionField = (description) => !isNumberInRange(description.length, 0, 141);
 
 const checkHastagsField = (hashtags) => {
   const currentHashtags = hashtags.split(`,`);

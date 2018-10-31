@@ -1,3 +1,5 @@
+require(`dotenv`).config();
+
 const modules = [
   require(`./src/commands/version`),
   require(`./src/commands/description`),

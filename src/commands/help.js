@@ -1,4 +1,5 @@
 require(`colors`);
+const logger = require(`../logger`);
 
 const COMMANDS = [
   {label: `help`, description: `печатает этот текст`},
@@ -13,7 +14,7 @@ module.exports = {
   name: `help`,
   description: `Shows available comands`,
   execute() {
-    console.log(`Доступные команды:\n${COMMANDS.map((cmd) => `\n--${cmd.label.gray} — ${` ${cmd.description}`.green}`).join(``)}`);
+    logger.info(`Доступные команды:\n${COMMANDS.map((cmd) => `\n--${cmd.label.gray} — ${` ${cmd.description}`.green}`).join(``)}`);
     process.exit(0);
   }
 };

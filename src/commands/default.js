@@ -2,6 +2,7 @@ const readline = require(`readline`);
 const fs = require(`fs`);
 const {promisify} = require(`util`);
 const generator = require(`../modules/generator`);
+const logger = require(`../logger`);
 require(`colors`);
 
 const writeFile = promisify(fs.writeFile);
@@ -34,10 +35,10 @@ const overwriteFile = (path, data) => {
         writeToFile(path, data);
         break;
       case `no`:
-        console.log(`Не перезаписывать файл`);
+        logger.info(`Не перезаписывать файл`);
         break;
       default:
-        console.log(`Нет такой команды ${answer}`);
+        logger.error(`Нет такой команды ${answer}`);
         break;
     }
     rl.close();
@@ -48,7 +49,7 @@ const writeToFile = async (path, data) => {
   try {
     await writeFile(path, JSON.stringify(data));
   } catch (err) {
-    console.log(err.message);
+    logger.error(err.message);
   }
 };
 
@@ -62,11 +63,11 @@ module.exports = {
           generateData();
           break;
         case `no`:
-          console.log(`Очень жаль`);
+          logger.info(`Очень жаль`);
           rl.close();
           break;
         default:
-          console.log(`До встречи`);
+          logger.info(`До встречи`);
           rl.close();
       }
     });

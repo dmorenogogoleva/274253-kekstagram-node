@@ -2,6 +2,7 @@ const express = require(`express`);
 const postsStore = require(`../posts/store`);
 const imagesStore = require(`../images/store`);
 const postsRouter = require(`../posts/route`)(postsStore, imagesStore);
+const logger = require(`../logger`);
 const app = express();
 
 app.use(express.static(`${__dirname}/../../static`));
@@ -9,10 +10,8 @@ app.use(express.static(`${__dirname}/../../static`));
 app.use(`/api/posts`, postsRouter);
 
 const runServer = (port) => {
-
   port = parseInt(port, 10);
-
-  app.listen(port, () => console.log(`Сервер запущен: http://localhost:${port}`));
+  app.listen(port, () => logger.info(`Сервер запущен: http://localhost:${port}`));
 };
 
 module.exports = {
