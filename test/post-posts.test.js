@@ -10,7 +10,7 @@ const app = express();
 
 app.use(`/api/posts`, postsRoute);
 
-const TEST_DATE = `${Date.now() - 1}`;
+const TEST_DATE = `${Date.now()}`;
 
 describe(`POST /api/posts`, () => {
   it(`send post`, async () => {
@@ -24,6 +24,7 @@ describe(`POST /api/posts`, () => {
       likes: `276`,
       comments: `['She took definition as her province', 'and challenged the existing definitions of poetry and the poet’s work.']`,
       date: TEST_DATE,
+      url: `api/posts/${TEST_DATE}/image`
     };
 
     const response = await request(app).
