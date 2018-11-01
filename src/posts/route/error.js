@@ -4,7 +4,7 @@ const ValidationError = require(`../../errors/validation-error`);
 const logger = require(`../../logger`);
 
 module.exports = (postsRouter) => {
-  const ERROR_HANDLER = (err, req, res, _next) => {
+  const errorHandler = (err, req, res, _next) => {
     logger.error(err);
     if (err instanceof ValidationError) {
       res.status(err.code).json(err.errors);
@@ -19,5 +19,5 @@ module.exports = (postsRouter) => {
     }
   };
 
-  postsRouter.use(ERROR_HANDLER);
+  postsRouter.use(errorHandler);
 };

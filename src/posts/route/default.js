@@ -23,7 +23,7 @@ module.exports = (postsRouter) => {
     const skip = parseInt(req.query.skip || 0, 10);
     const limit = parseInt(req.query.limit || PHOTOS_DEFAULT_LIMIT, 10);
 
-    res.send(await toPage(await postsRouter.postsStore.getAllPosts(), skip, limit));
+    res.send(await toPage(await postsRouter.postsStore.getAll(), skip, limit));
   }));
 
   postsRouter.post(``, jsonParser, upload.single(`filename`), asyncMiddleware(async (req, res) => {

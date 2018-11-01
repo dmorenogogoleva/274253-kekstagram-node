@@ -14,11 +14,11 @@ class PostsStore {
     this.collection = collection;
   }
 
-  async getPost(date) {
+  async get(date) {
     return (await this.collection).findOne({date});
   }
 
-  async getAllPosts() {
+  async getAll() {
     return (await this.collection).find();
   }
 

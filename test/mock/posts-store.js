@@ -6,11 +6,11 @@ class MockPostsStore {
     this.data = data;
   }
 
-  async getPost(date) {
+  async get(date) {
     return this.data.filter((it) => it.date === date)[0];
   }
 
-  async getAllPosts() {
+  async getAll() {
     return new Cursor(this.data);
   }
 

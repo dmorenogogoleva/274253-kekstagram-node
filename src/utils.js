@@ -1,5 +1,9 @@
 const REGEXP_HASHTAG = /^#[а-яa-z0-9]{1,20}$/i;
 
+const EFFECTS = [`none`, `chrome`, `sepia`, `marvin`, `phobos`, `heat`];
+
+const MILLISECONDS_IN_WEEK = 604800000;
+
 const isNumberInRange = (value, min, max) => {
   const num = parseInt(value, 10);
   return num > min && num < max ? true : false; // eslint-disable-line
@@ -20,8 +24,8 @@ const checkHastagsField = (hashtags) => {
 
 module.exports = {
   REGEXP_HASHTAG,
-  EFFECTS: [`none`, `chrome`, `sepia`, `marvin`, `phobos`, `heat`],
-  MILLISECONDS_IN_WEEK: 604800000,
+  EFFECTS,
+  MILLISECONDS_IN_WEEK,
   checkScaleField,
   checkHastagsField,
   checkDescriptionField,
