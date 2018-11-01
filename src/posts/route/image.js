@@ -12,7 +12,7 @@ module.exports = (postsRouter) => {
     }
 
     const date = postDate;
-    const found = await postsRouter.postsStore.getPost(date);
+    const found = await postsRouter.postsStore.get(date);
 
     if (!found) {
       throw new NotFoundError(`Пост с датой "${postDate}" не найден`);
